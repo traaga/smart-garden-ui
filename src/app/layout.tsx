@@ -27,7 +27,7 @@ export default function RootLayout({
 			<head>
 				<link rel="icon" href="/favicon.svg" sizes="any" />
 				<link rel="manifest" href="/manifest.json" crossOrigin="use-credentials"/>
-				<link rel="apple-touch-icon" href="/icon.png" />
+				<link rel="apple-touch-icon" href="/icon.svg" />
 				<meta
 					name='viewport'
 					content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'
