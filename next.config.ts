@@ -1,9 +1,11 @@
-import type { NextConfig } from "next";
+const runtimeCaching = require("next-pwa/cache");
+const withPWA = require('next-pwa')({
+	dest: 'public',
+	register: true,
+	skipWaiting: true,
+	runtimeCaching
+})
 
-const nextConfig: NextConfig = {
-	devIndicators: {
-		appIsrStatus: false,
-	},
-};
-
-export default nextConfig;
+module.exports = withPWA({
+	reactStrictMode: false
+})

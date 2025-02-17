@@ -1,5 +1,5 @@
 import { NodeItem } from "@/common";
-import { Thermometer, Droplets, Flower2 } from "lucide-react"
+import { Thermometer, Droplets } from "lucide-react"
 import { AuthenticatedImage } from "./AuthenticatedImage";
 
 interface PlantCardProps {

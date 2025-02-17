@@ -26,7 +26,12 @@ export default function RootLayout({
 		<html lang="en">
 			<head>
 				<link rel="icon" href="/favicon.svg" sizes="any" />
-				<meta name="viewport" content="width=device-width, initial-scale=1" />
+				<link rel="manifest" href="/manifest.json" crossOrigin="use-credentials"/>
+				<link rel="apple-touch-icon" href="/icon.png" />
+				<meta
+					name='viewport'
+					content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'
+				/>
 			</head>
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}

@@ -1,15 +1,16 @@
 "use client"
 
-import { ChevronLeft, Flower2 } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import { Config, HistoryMeasurements, measurementSettings } from '@/common';
 import { HistoryChart } from './HistoryChart';
 import { Configuration } from './Configuration';
 import { useEffect, useState } from 'react';
-import { getConfig, getCurrentMeasurements, getHistoryMeasurements, getImageSource } from '@/api-client';
+import { getConfig, getCurrentMeasurements, getHistoryMeasurements } from '@/api-client';
 import { useParams } from 'next/navigation';
 import { MeasurementCard } from './MeasurementCard';
 import { Skeleton } from './ui/skeleton';
 import { AuthenticatedImage } from './AuthenticatedImage';
+import Link from 'next/link';
 
 export function Details() {
 	const params = useParams<{ id: string }>();
@@ -41,9 +42,9 @@ export function Details() {
 
 	return (
 		<div className="container mx-auto max-w-xl relative min-h-screen bg-white">
-			<a href='/' className='absolute top-4 left-4 transition duration-150 active:scale-75 cursor-pointer'>
+			<Link href='/' className='absolute top-4 left-4 transition duration-150 active:scale-75 cursor-pointer'>
 				<ChevronLeft size={48} color='#334155' />
-			</a>
+			</Link>
 			<AuthenticatedImage url={config?.imageUrl} className='w-full max-h-[70vh] object-cover' skeletonClassName="w-full h-[70vh] flex justify-center items-center bg-gray-200"/>
 			<div id="content" className='relative px-4 pb-6'>
 				<div className='absolute h-12 w-full bg-white top-[-47px] left-0 rounded-tr-full rounded-tl-full pt-8 pl-10 pr-6'>

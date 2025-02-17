@@ -75,6 +75,7 @@ export const updateConfig = async (config: Config): Promise<void> => {
     }
 
     try {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const {id, version, createdAt, updatedAt, ...rest} = config;
 
         const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/config?id=' + id, {
