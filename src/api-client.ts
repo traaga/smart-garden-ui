@@ -9,6 +9,7 @@ export const getOnlineNodes = async (): Promise<NodeItem[]> => {
             id: "00000000000000000000000000000000",
             name: "test-node",
             imageUrl: "../plant-512x768.jpg",
+            showWarning: false,
             fields: {
                 moisture: 75,
             },
@@ -44,6 +45,7 @@ export const getConfig = async (id: string): Promise<Config | null> => {
             interval: 900,
             led_state: false,
             imageUrl: "../plant-512x768.jpg",
+            soilMoistureThreshold: null,
             updatedAt: new Date().toISOString(),
             createdAt: new Date().toISOString(),
         };
@@ -75,12 +77,24 @@ export const updateConfig = async (config: Config): Promise<void> => {
     }
 
     try {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const {id, version, createdAt, updatedAt, ...rest} = config;
+        const {
+            id,
+            name,
+            interval,
+            led_state,
+            soilMoistureThreshold,
+        } = config;
+
+        const body = {
+            name,
+            interval,
+            led_state,
+            soilMoistureThreshold: soilMoistureThreshold || null,
+        };
 
         const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/config?id=' + id, {
             method: "PUT",
-            body: JSON.stringify(rest),
+            body: JSON.stringify(body),
             headers: {
                 'Content-Type': 'application/json',
                 'CF-Access-Client-Id': process.env.NEXT_PUBLIC_CF_AUTH_ID || '',
@@ -212,4 +226,89 @@ export const getImageSource = async (url: string): Promise<string> => {
         console.error((error as Error).message);
     }
     return '';
+};
+
+export const subscribeUser = async (sub: PushSubscription): Promise<void> => {
+    if(process.env.NEXT_PUBLIC_ENVIRONMENT === 'development') {
+        return;
+    }
+
+    try {
+        const deviceId = localStorage.getItem('deviceId');
+        if (!deviceId) {
+            throw new Error('No device id found');
+        }
+
+        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/subscription', {
+            method: "PUT",
+            body: JSON.stringify({
+                id: deviceId,
+                data: JSON.stringify(sub),
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+                'CF-Access-Client-Id': process.env.NEXT_PUBLIC_CF_AUTH_ID || '',
+                'CF-Access-Client-Secret': process.env.NEXT_PUBLIC_CF_AUTH_TOKEN || ''
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+    } catch (error) {
+        console.error((error as Error).message);
+    }
+};
+
+export const unsubscribeUser = async (): Promise<void> => {
+    if(process.env.NEXT_PUBLIC_ENVIRONMENT === 'development') {
+        return;
+    }
+
+    try {
+        const deviceId = localStorage.getItem('deviceId');
+        if (!deviceId) {
+            throw new Error('No device id found');
+        }
+
+        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/subscription?id=' + deviceId, {
+            method: "DELETE",
+            headers: {
+                'CF-Access-Client-Id': process.env.NEXT_PUBLIC_CF_AUTH_ID || '',
+                'CF-Access-Client-Secret': process.env.NEXT_PUBLIC_CF_AUTH_TOKEN || ''
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+    } catch (error) {
+        console.error((error as Error).message);
+    }
+};
+
+export const sendNotification = async (): Promise<void> => {
+    if(process.env.NEXT_PUBLIC_ENVIRONMENT === 'development') {
+        return;
+    }
+
+    try {
+        const deviceId = localStorage.getItem('deviceId');
+        if (!deviceId) {
+            throw new Error('No device id found');
+        }
+
+        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/subscription?id=' + deviceId, {
+            headers: {
+                'CF-Access-Client-Id': process.env.NEXT_PUBLIC_CF_AUTH_ID || '',
+                'CF-Access-Client-Secret': process.env.NEXT_PUBLIC_CF_AUTH_TOKEN || ''
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+    } catch (error) {
+        console.error((error as Error).message);
+    }
 };

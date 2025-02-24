@@ -44,6 +44,7 @@ export interface Config {
 	interval: number;
 	led_state: boolean;
 	imageUrl: string;
+	soilMoistureThreshold: number | null;
 	updatedAt: string;
 	createdAt: string;
 }
@@ -52,6 +53,7 @@ export interface NodeItem {
 	id: string;
 	name: string;
 	imageUrl: string;
+	showWarning: boolean;
 	fields: {
         [key: string]: number;
     };

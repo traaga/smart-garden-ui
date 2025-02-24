@@ -60,7 +60,7 @@ export function Details() {
 
 				<div className="pt-20 flex flex-wrap gap-2">
 					{config && measurementSettings.map(setting =>
-						<MeasurementCard key={setting.type} setting={setting} value={currentMeasurements[setting.type]} />
+						<MeasurementCard key={setting.type} setting={setting} value={currentMeasurements[setting.type]} config={config}/>
 					)}
 					{!config && measurementSettings.map(setting =>
 						<Skeleton key={setting.type} style={{width: "calc(50% - 4px)"}} className="h-[84px] rounded-2xl" />

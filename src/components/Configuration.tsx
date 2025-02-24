@@ -46,47 +46,57 @@ export function Configuration(props: ConfigurationProps) {
 				<CardTitle className="flex items-center justify-between">
 					<div>Configuration</div>
 					<div className="flex gap-2">
-						<Badge variant="secondary">Saved to DB</Badge>
+						<Badge variant="secondary" className="line-through">Saved to DB</Badge>
 						<Badge variant="secondary">v{config.version}</Badge>
 					</div>
 				</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<form>
-					<div className="flex gap-6">
-						<div className="flex flex-col gap-2 whitespace-nowrap">
-							<Label htmlFor="config-id" className="h-9 flex items-center">ID</Label>
-							<Label htmlFor="config-name" className="h-9 flex items-center">Name</Label>
-							<Label htmlFor="config-interval" className="h-9 flex items-center">Interval</Label>
-							<Label htmlFor="config-led_state" className="h-9 flex items-center">Led state</Label>
-						</div>
-						<div className="flex flex-col gap-2 w-full">
-							<Input
-								id="config-id"
-								disabled value={config.id}
-							/>
-							<Input
-								id="config-name"
-								disabled={!editConfig}
-								value={config.name}
-								onChange={(e) => handleChange('name', e.target.value)}
-							/>
-							<Input
-								id="config-interval"
-								disabled={!editConfig}
-								type="number"
-								value={config.interval}
-								onChange={(e) => handleChange('interval', parseInt(e.target.value) || 0)}
-							/>
-							<div className="h-9 flex items-center pl-1">
-								<Switch
-									id="config-led_state"
-									disabled={!editConfig}
-									checked={config.led_state}
-									onCheckedChange={(checked) => handleChange('led_state', checked)}
-								/>
-							</div>
-						</div>
+				<form className="flex flex-col gap-2">
+					<div>
+						<Label htmlFor="config-id" className="text-xs pl-1">ID</Label>
+						<Input
+							id="config-id"
+							disabled value={config.id}
+						/>
+					</div>
+					<div>
+						<Label htmlFor="config-name" className="text-xs pl-1">Name</Label>
+						<Input
+							id="config-name"
+							disabled={!editConfig}
+							value={config.name}
+							onChange={(e) => handleChange('name', e.target.value)}
+						/>
+					</div>
+					<div>
+						<Label htmlFor="config-interval" className="text-xs pl-1">Measure interval <span className="text-gray-400">(seconds)</span></Label>
+						<Input
+							id="config-interval"
+							disabled={!editConfig}
+							type="number"
+							value={config.interval}
+							onChange={(e) => handleChange('interval', parseInt(e.target.value) || 0)}
+						/>
+					</div>
+					<div>
+						<Label htmlFor="config-soilMoistureThreshold" className="text-xs pl-1">Soil moisture threshold <span className="text-gray-400">(%)</span></Label>
+						<Input
+							id="config-soilMoistureThreshold"
+							disabled={!editConfig}
+							type="number"
+							value={config.soilMoistureThreshold || 0}
+							onChange={(e) => handleChange('soilMoistureThreshold', parseInt(e.target.value) || 0)}
+						/>
+					</div>
+					<div className="flex items-center gap-4 mt-2">
+						<Label htmlFor="config-led_state" className="text-xs pl-1">Debug led</Label>
+						<Switch
+							id="config-led_state"
+							disabled={!editConfig}
+							checked={config.led_state}
+							onCheckedChange={(checked) => handleChange('led_state', checked)}
+						/>
 					</div>
 				</form>
 			</CardContent>
