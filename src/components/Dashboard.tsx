@@ -15,7 +15,7 @@ export function Dashboard() {
 	useEffect(() => {
 		// Maybe move sopmewhere else?
 		const deviceId = localStorage.getItem('deviceId');
-		if(!deviceId) {
+		if (!deviceId) {
 			localStorage.setItem('deviceId', uuidv4());
 		}
 
@@ -26,18 +26,19 @@ export function Dashboard() {
 
 	return (
 		<div className="container mx-auto p-4 max-w-xl min-h-screen bg-white">
-			<div className="flex items-center mb-6  pt-2 pl-2 gap-2">
-				<Leaf size={32} strokeWidth={2.5} color='#178237'/>
-				<h1 className="text-3xl font-bold text-slate-700">Smart Garden</h1>
+			<div className="flex items-center mb-6 pt-2 pl-2 justify-between">
+				<div className='flex gap-2'>
+					<Leaf size={32} strokeWidth={2.5} color='#178237' />
+					<h1 className="text-3xl font-bold text-slate-700">Smart Garden</h1>
+				</div>
+				<div className='mr-4'>
+					<PushNotificationManager />
+				</div>
 			</div>
 
 			<div className="mt-4 flex flex-wrap gap-4">
-				{nodes.map((node) => <PlantCard key={node.id} node={node}/>)}
-				{!nodes.length && [1,2,3,4].map((node) => <Skeleton key={node} style={{width: "calc(50% - 8px)"}} className="h-[33vh] rounded-2xl" />)}
-			</div>
-
-			<div className='mt-6 bg-slate-100 p-6 rounded-2xl'>
-				<PushNotificationManager />
+				{nodes.map((node) => <PlantCard key={node.id} node={node} />)}
+				{!nodes.length && [1, 2, 3, 4].map((node) => <Skeleton key={node} style={{ width: "calc(50% - 8px)" }} className="h-[33vh] rounded-2xl" />)}
 			</div>
 		</div>
 	)

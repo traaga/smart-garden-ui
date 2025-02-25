@@ -287,6 +287,7 @@ export const unsubscribeUser = async (): Promise<void> => {
     }
 };
 
+// FOR TESTING
 export const sendNotification = async (): Promise<void> => {
     if(process.env.NEXT_PUBLIC_ENVIRONMENT === 'development') {
         return;
@@ -298,8 +299,18 @@ export const sendNotification = async (): Promise<void> => {
             throw new Error('No device id found');
         }
 
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/subscription?id=' + deviceId, {
+        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/subscription', {
+            method: "POST",
+            body: JSON.stringify({
+                ids: [deviceId],
+                message: {
+                    title: 'Test Node',
+                    body: 'Test message',
+                    icon: '/icon.svg',
+                },
+            }),
             headers: {
+                'Content-Type': 'application/json',
                 'CF-Access-Client-Id': process.env.NEXT_PUBLIC_CF_AUTH_ID || '',
                 'CF-Access-Client-Secret': process.env.NEXT_PUBLIC_CF_AUTH_TOKEN || ''
             }
