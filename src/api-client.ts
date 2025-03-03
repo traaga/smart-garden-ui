@@ -4,7 +4,7 @@ import { Config, HistoryMeasurements, NodeItem } from './common';
 dotenv.config();
 
 export const getOnlineNodes = async (): Promise<NodeItem[]> => {
-    if(process.env.NEXT_PUBLIC_ENVIRONMENT === 'development') {
+    if(process.env.NODE_ENV === 'development') {
         return [{
             id: "00000000000000000000000000000000",
             name: "test-node",
@@ -37,7 +37,7 @@ export const getOnlineNodes = async (): Promise<NodeItem[]> => {
 };
 
 export const getConfig = async (id: string): Promise<Config | null> => {
-    if(process.env.NEXT_PUBLIC_ENVIRONMENT === 'development') {
+    if(process.env.NODE_ENV === 'development') {
         return {
             id: "00000000000000000000000000000000",
             name: "test-node",
@@ -72,7 +72,7 @@ export const getConfig = async (id: string): Promise<Config | null> => {
 };
 
 export const updateConfig = async (config: Config): Promise<void> => {
-    if(process.env.NEXT_PUBLIC_ENVIRONMENT === 'development') {
+    if(process.env.NODE_ENV === 'development') {
         return;
     }
 
@@ -111,7 +111,7 @@ export const updateConfig = async (config: Config): Promise<void> => {
 };
 
 export const getCurrentMeasurements = async (id: string): Promise<{[key: string]: number} | null> => {
-    if(process.env.NEXT_PUBLIC_ENVIRONMENT === 'development') {
+    if(process.env.NODE_ENV === 'development') {
         return {
             moisture: 75,
         };
@@ -138,7 +138,7 @@ export const getCurrentMeasurements = async (id: string): Promise<{[key: string]
 };
 
 export const getHistoryMeasurements = async (id: string): Promise<HistoryMeasurements | null> => {
-    if(process.env.NEXT_PUBLIC_ENVIRONMENT === 'development') {
+    if(process.env.NODE_ENV === 'development') {
         return {
             day: [{
                 datetime: new Date().toISOString(),
@@ -176,7 +176,7 @@ export const getHistoryMeasurements = async (id: string): Promise<HistoryMeasure
 };
 
 export const uploadImage = async (formData: FormData): Promise<void> => {
-    if(process.env.NEXT_PUBLIC_ENVIRONMENT === 'development') {
+    if(process.env.NODE_ENV === 'development') {
         return;
     }
 
@@ -229,7 +229,7 @@ export const getImageSource = async (url: string): Promise<string> => {
 };
 
 export const subscribeUser = async (sub: PushSubscription): Promise<void> => {
-    if(process.env.NEXT_PUBLIC_ENVIRONMENT === 'development') {
+    if(process.env.NODE_ENV === 'development') {
         return;
     }
 
@@ -261,7 +261,7 @@ export const subscribeUser = async (sub: PushSubscription): Promise<void> => {
 };
 
 export const unsubscribeUser = async (): Promise<void> => {
-    if(process.env.NEXT_PUBLIC_ENVIRONMENT === 'development') {
+    if(process.env.NODE_ENV === 'development') {
         return;
     }
 
@@ -289,7 +289,7 @@ export const unsubscribeUser = async (): Promise<void> => {
 
 // FOR TESTING
 export const sendNotification = async (): Promise<void> => {
-    if(process.env.NEXT_PUBLIC_ENVIRONMENT === 'development') {
+    if(process.env.NODE_ENV === 'development') {
         return;
     }
 

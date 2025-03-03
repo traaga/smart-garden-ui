@@ -89,7 +89,7 @@ export function Configuration(props: ConfigurationProps) {
 							onChange={(e) => handleChange('soilMoistureThreshold', parseInt(e.target.value) || 0)}
 						/>
 					</div>
-					<div className="flex items-center gap-4 mt-2">
+					{process.env.NODE_ENV === 'development' && <div className="flex items-center gap-4 mt-2">
 						<Label htmlFor="config-led_state" className="text-xs pl-1">Debug led</Label>
 						<Switch
 							id="config-led_state"
@@ -97,7 +97,7 @@ export function Configuration(props: ConfigurationProps) {
 							checked={config.led_state}
 							onCheckedChange={(checked) => handleChange('led_state', checked)}
 						/>
-					</div>
+					</div>}
 				</form>
 			</CardContent>
 			<CardFooter className="flex justify-end gap-4">
